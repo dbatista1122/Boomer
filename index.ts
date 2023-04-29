@@ -19,5 +19,3 @@ console.error('Failed to connect to MongoDB:', err);
 });
 
 app.listen(port, () => console.log("Listening on port " + port))
-
-app.get)
