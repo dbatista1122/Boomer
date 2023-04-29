@@ -1,12 +1,21 @@
-import * as express from 'express'
+require('dotenv').config()
 
-const app: Express = express();
-const port = process.env.PORT;
+const port = process.env.DEV_PORT
+const db = process.env.DB
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
+const express = require('express')
+const app = express()
+
+const mongoose = require('mongoose')
+
+mongoose.connect(db);
+
+mongoose.connection.on('connected', () => {
+console.log('Connected to MongoDB');
 });
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+mongoose.connection.on('error', (err: Error) => {
+console.error('Failed to connect to MongoDB:', err);
 });
+
+app.listen(port, () => console.log("Listening on port " + port))
